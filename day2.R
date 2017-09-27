@@ -14,3 +14,6 @@ nclRshiny::create_project()
 ## some editing of the .Rmd
 rmarkdown::render("exercises/chapter1/markdown1.Rmd""")
 rmarkdown::render("test.Rmd")
+
+
+?flexdashboard::flex_dashboard
