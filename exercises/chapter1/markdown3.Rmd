@@ -2,7 +2,9 @@
 title: "My first presentation"
 author: "Jumping Rivers"
 date: "`r Sys.Date()`"
-output: revealjs::revealjs_presentation
+output: ioslides_presentation
+## css: left.css
+## output: revealjs::revealjs_presentation
 ---
 
 ## R Markdown

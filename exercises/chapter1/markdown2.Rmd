@@ -30,9 +30,9 @@ Description:
 
 ### results
 
-  * Other options for results is `markup` and `asis`
+  * Options for results are `hide`, `markup` and `asis`
   * What is the default?
-```{r results = 'hide'}
+```{r results = 'asis'}
 carmeans = colMeans(cars)
 1 + 1
 ```
