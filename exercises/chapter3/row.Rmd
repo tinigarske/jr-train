@@ -1,0 +1,34 @@
+---
+title: "Row Orientation Example"
+author: "Jumping Rivers"
+output: 
+  flexdashboard::flex_dashboard:
+    orientation: rows
+---
+<!--
+%\VignetteEngine{knitr::rmarkdown}
+%\VignetteIndexEntry{Chapter 3: c - Row Orientation Example}
+-->    
+Row
+-------------------------------------
+    
+### Chart 1
+    
+```{r}
+plot(rnorm(10))
+```
+   
+Row
+-------------------------------------
+    
+### Chart 2
+    
+```{r}
+plot(rnorm(10))
+```
+    
+### Chart 3
+
+```{r}
+plot(rnorm(10))
+```

@@ -1,0 +1,41 @@
+---
+title:  "Shiny Flexdashboard"
+author:  "You"
+output:  flexdashboard::flex_dashboard
+runtime: shiny    
+---
+
+```{r setup, include=FALSE}
+library(shiny)
+library(flexdashboard)
+#library(nclRshiny)
+library("ggplot2movies")
+library(ggplot2)
+data(movies, package="ggplot2movies")
+movies = movies[!is.na(movies$budget) & movies$budget > 0,]
+top_movies = movies[order(-movies$rating), c("title", "year", "budget", "rating", "Romance", "Action", "Animation"), ]
+colnames(top_movies)  = c("Title", "Year", "Budget", "Rating","Romance", "Action", "Animation")
+```
+
+Selections {.sidebar}
+===============================
+
+
+Tables
+===================================== 
+
+Column {.tabset .tabset-fade}
+-------------------------------------
+
+
+Base graphics 
+===================================== 
+
+
+htmlwidget and value boxes
+===================================== 
+
+
+
+
+

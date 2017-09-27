@@ -1,0 +1,32 @@
+---
+title: "Shiny: exercise 6"
+runtime: shiny
+---
+
+```{r echo=FALSE}
+library("shiny")
+```
+
+
+```{r echo=FALSE}
+## The UI
+sliderInput("n", "Sample size", 10, 50, 25)
+selectInput("dist", "Distribution", c("Uniform", "Normal"))
+actionButton("plot", "Plot it")
+```
+
+```{r echo=FALSE}
+get_data = function(n, dist) {
+  if(dist=="Uniform") runif(n)
+  else rnorm(n)
+}
+
+data = reactive(get_data(input$n, input$dist))
+
+renderPlot(plot(data()))
+renderText(max(data()))
+```
+
+
+
+

@@ -1,0 +1,25 @@
+---
+title: "Shiny: exercise 2"
+runtime: shiny
+---
+
+```{r echo=FALSE}
+library("shiny")
+```
+
+
+```{r}
+## The UI
+sliderInput("n", "Sample size", 10, 50, 25)
+```
+
+```{r}
+renderPlot({plot(rnorm(input$n))})
+renderText({
+  max(rnorm(input$n))
+})
+```
+
+
+
+

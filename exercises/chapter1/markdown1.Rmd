@@ -1,0 +1,82 @@
+---
+title: "Chapter 1: Exercise 1"
+author: "Jumping Rivers"
+output:
+  html_document
+---
+
+## Instructions 
+
+For each line below:
+  
+  1. Format the line with markdown to display what the line describes.
+  2. Re-render the file by pressing the `Knit HTML` button above to see if it worked.
+  3. Move on to the next line.
+  
+The Markdown cheatsheet is available under the `Help` button in the top menu.
+***
+
+Use markdown to indicate:
+
+# A first level header  
+## A second level header  
+### A third level header  
+#### A fourth level header  
+##### A fifth level header  
+###### A sixth level header  
+
+**bold text**
+
+_italic text_
+
+<!-- this is an html comment. -->
+<!-- An unordered list: -->
+
+* Item 1  
+* Item 2  
+    + sub-item 1  
+    + sub-item 2  
+
+An ordered list:
+
+1. Item 1  
+3. Item 2  
+      (a) sub-item 1  
+      (a) sub-item 2  
+
+A table:
+
+Header 1 | Header 2
+-------- | ----------
+Cell 1   | Cell 2  
+Cell 3 	 | Cell 4  
+
+
+A 2nd table:
+
+Header 1 | Header 2
+-------- 
+Cell 1 | Cell 2  
+Cell 3 | Cell 4
+
+
+A chunk of R code:
+
+```{r echo = TRUE, eval = TRUE}
+
+## rmarkdown::render("exercises/chapter1/markdown1.Rmd")
+
+
+## data(gapminder, package = "gapminder")
+## plot(lifeExp ~ gdpPercap, dat = gapminder)
+
+library(d3heatmap)
+d3heatmap(mtcars)
+
+mtcars = mtcars[sample(nrow(mtcars), replace = TRUE), ]
+test = t.test(mtcars$mpg, mu = 15)
+
+```
+
+The average mpg of cars that were surveyed was `r mean(mtcars$mpg)`
+My hypothesis test gave a p-value of `r test$p.value`

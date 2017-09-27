@@ -1,0 +1,33 @@
+---
+title: "Multiple Columns"
+author: "Jumping Rivers"
+output: flexdashboard::flex_dashboard
+---
+<!--
+%\VignetteEngine{knitr::rmarkdown}
+%\VignetteIndexEntry{Chapter 3: d - Multiple Columns}
+-->
+
+Column 1 {data-width=400}
+-------------------------------------
+    
+### Chart 1
+    
+```{r}
+
+```
+   
+Column 2 {data-width=200}
+-------------------------------------
+   
+### Chart 2
+
+```{r}
+
+```   
+ 
+### Chart 3
+    
+```{r}
+
+```

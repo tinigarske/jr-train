@@ -1,0 +1,176 @@
+---
+title: "Components"
+author: "Jumping Rivers"
+output: flexdashboard::flex_dashboard
+runtime: shiny
+---
+
+```{r echo=FALSE} 
+setnicepar = function(mar=c(3,3,2,1), 
+         mgp=c(2,0.4,0), tck=-.01,
+         cex.axis=0.9, las=1, mfrow=c(1,1),...) {
+  par(mar=mar, 
+      mgp=mgp, tck=tck,
+      cex.axis=cex.axis, las=las,mfrow=mfrow,...)
+}
+```
+
+
+```{r setup}
+library(shiny)
+library(flexdashboard)
+#library(nclRshiny)
+library("ggplot2movies")
+library(ggplot2)
+library(flexdashboard)
+data(movies, package="ggplot2movies")
+movies = movies[!is.na(movies$budget) & movies$budget > 0,]
+top_movies = movies[order(-movies$rating), c("title", "year", "budget", "rating", "Romance", "Action", "Animation"), ]
+colnames(top_movies)  = c("Title", "Year", "Budget", "Rating","Romance", "Action", "Animation")
+theme_set(theme_bw())
+
+
+t_m = reactive(top_movies[top_movies[input$movie_type]==1,])
+years = reactive(movies[movies$year > 1929 & movies[input$movie_type]==1,])
+an = reactive(movies[movies[input$movie_type]==1,])
+```
+
+
+Selections {.sidebar}
+===============================
+
+
+Select the movie genre to display
+
+```{r}
+selectInput("movie_type", label = "Movie genre", c("Romance", "Action", "Animation"))
+selectInput("mpaa", label = "MPAA", c("R", "PG-13", "PG", "NC-17"))
+actionButton("replot", "Plot")
+```
+
+Note I've used a global side-bar here.
+
+Tables
+===================================== 
+
+Column {.tabset .tabset-fade}
+-------------------------------------
+### Top 10 movies (static)
+
+```{r}
+renderTable({
+  t_m_isolate = isolate(t_m())
+  input$replot
+  t_m_isolate[1:10, 1:4]
+})
+```
+
+### Top 10 movies (dynamic)
+
+```{r}
+DT::renderDataTable({
+  t_m_isolate = isolate(t_m())
+  input$replot
+  DT::datatable(t_m_isolate[,1:4], rownames = FALSE)})
+```
+
+
+Base graphics 
+===================================== 
+
+### Rating vs Length
+
+```{r}
+renderPlot({
+setnicepar()
+plot(an()$rating, an()$length, ylab="Length", xlab="Rating", 
+      pch=21, bg="steelblue", ylim=c(0, max(an()$length)), 
+     xlim=c(1, 10), main=paste0(input$movie_type, " movies"))
+grid()
+})
+```
+
+### Movie Length
+
+```{r}
+renderPlot({
+  setnicepar()
+  hist(an()$length, breaks="fd", col="steelblue", xlab="Movie Length", 
+      main="Histogram of movie length", xlim=c(0, max(an()$length)))
+  grid()
+})
+```
+
+htmlwidget and value boxes
+===================================== 
+
+Column 1 {data-width=200}
+------------------------------------
+### Length vs rating
+
+This example makes use of the `plotly` and `ggplot2`. There is also a `valuebox` showing the number
+of terrible movies.
+
+```{r}
+library(plotly)
+renderPlotly({
+g = ggplot(an(), aes(length, rating)) + 
+  geom_point(size=0.5, aes(text=paste("Film: ", title))) + 
+  xlab("Length") + ylab("Rating") + 
+  ylim(c(0, 10)) 
+ggplotly(g)
+})
+```
+
+### Value boxes
+
+```{r}
+renderValueBox({
+  valueBox(sum(an()$rating <3), icon = "ion-videocamera", caption="Movies Rated less than 3", 
+         color="red")
+})
+```
+
+Column 2 {data-width=300}
+-------------------------------------
+
+### Movie ratings over number
+
+This example makes use of the `dygraphs` R package. The dygraphs
+package provides rich facilities for charting time-series data 
+in R. 
+
+```{r}
+library(dygraphs)
+renderDygraph({
+rat_by_year = tapply(years()$rating, years()$year, mean)
+x = ts(as.vector(rat_by_year), start=1930)
+y = cbind(Rating=x)
+dygraph(y, main = "Ratings over the years", 
+        ylab = "Ratings", group="Ratings") %>% 
+  dyRangeSelector() %>%
+   dyOptions(stepPlot = TRUE) %>%
+  dySeries("V1", label = "Rating")
+})
+```
+
+### Number of movies made
+
+```{r}
+library(dygraphs)
+renderDygraph({
+num_by_year = tapply(years()$rating, years()$year, sum)
+x = ts(as.vector(num_by_year), start=1930)
+y = cbind(Rating=x)
+dygraph(y, main = "Number of movies over the years", 
+        ylab = "No. of movies",group="Ratings") %>% 
+  dyRangeSelector() %>%
+   dyOptions(stepPlot = TRUE) %>%
+  dySeries("V1", label = "No. of Movies made")
+})
+```
+
+
+
+
+

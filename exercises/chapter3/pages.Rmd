@@ -1,0 +1,43 @@
+---
+title: "Page Example"
+author: "Jumping Rivers"
+output: 
+  flexdashboard::flex_dashboard:
+    orientation: rows
+    vertical_layout: scroll
+---
+<!--
+%\VignetteEngine{knitr::rmarkdown}
+%\VignetteIndexEntry{Chapter 3: e - Row Orientation Example}
+-->  
+
+Page 1
+===================================== 
+
+Row
+-------------------------------------
+    
+### Chart 1
+    
+```{r}
+plot(rnorm(10))
+```
+
+### Chart 2
+    
+```{r}
+plot(rnorm(10))
+```
+
+Page 2
+===================================== 
+
+Row
+-------------------------------------
+    
+### Chart 3
+    
+```{r}
+plot(rnorm(10))
+```
+

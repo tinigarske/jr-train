@@ -1,0 +1,48 @@
+---
+title: "Why we need observeEvents"
+author: "Jumping Rivers"
+runtime: shiny
+---
+### Problem
+
+We have two action buttons. When we click a button, we wish to generate a new plot. 
+However, dependencies within `reactive` function are constructed dynamically as the
+code is run. In the case below, because `input$unif` is not executed, then it is not
+included as a dependency.
+
+```{r echo=FALSE}
+actionButton("norm", "Normal")
+actionButton("unif", "Uniform")
+## Reactive dependencies are dynamic
+rv1 = reactive({
+  if(input$norm) {
+    rnorm(100)
+  } else if(input$unif){
+    runif(100)
+  } else {
+    rnorm(100)
+  }
+})
+
+renderPlot(plot(rv1()))
+```
+
+
+### Solution
+
+Combine `reactiveValues` and `observeEvents`. 
+  * `reactiveValues` creates a list of reactive values that you can update in your code
+  * You can update the reactive values from inside a call to
+
+```{r echo=FALSE}
+rv2 = reactiveValues(data = rnorm(100))
+
+observeEvent(input$norm, {rv2$data = rnorm(100)})
+observeEvent(input$unif, {rv2$data = runif(100)})
+renderPlot({plot(rv2$data)})
+```
+
+
+#### Further information
+
+  * https://shinydata.wordpress.com/2015/02/02/a-few-things-i-learned-about-shiny-and-reactive-programming/

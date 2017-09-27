@@ -1,0 +1,51 @@
+---
+title: "Movie data set"
+output: flexdashboard::flex_dashboard
+runtime: shiny
+source_code: embed
+---
+
+```{r echo=FALSE}
+library(ggplot2movies)
+library(nclRshiny)
+movies = movies[!is.na(movies$budget) & movies$budget > 0,]
+```
+
+Selections {.sidebar}
+-----------------------------------------------------------------------
+
+Select the year range  and movie type
+
+```{r}
+sliderInput("year", label = "Minimum year:", min=1930, max=2010, step=10, value=c(1930, 2010), sep="")
+selectInput("movie_type", label = "Movie genre", c("Romance", "Action", "Animation"))
+```
+
+Column
+-----------------------------------------------------------------------
+
+### Movie Rating vs Length
+
+```{r}
+renderPlot({
+  setnicepar() # Sets nice plotting region
+  type = movies[,input$movie_type] == 1
+  x = movies$rating[movies$year >= input$year[1] &  movies$year <= input$year[2] ]
+  y = movies$length[movies$year >= input$year[1] &  movies$year <= input$year[2]]
+  
+  plot(x,  y, 
+       xlab="Rating", ylab="Length", 
+       xlim=c(1, 10), ylim=c(0, 400), 
+       pch=21, cex=1, 
+       bg=factor(type), col=NA)
+  grid()
+})
+```
+
+###
+
+```{r}
+renderText({
+  type = movies[,input$movie_type] == 1
+  paste("There are ", sum(type))
+})

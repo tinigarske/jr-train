@@ -1,0 +1,35 @@
+---
+title: "Why we need `isolate`"
+author: "Jumping Rivers"
+runtime: shiny
+---
+
+### Problem
+
+The plot is only generated when we click the plot button. However, since the
+`main` argument depends on the slider value, the plot title is wrong.
+
+```{r echo=FALSE}
+sliderInput("n", "Sample size", 10, 50, 10)
+selectInput("dist", "Distribution", c("Normal", "Uniform"))
+actionButton("go", "Plot it!")
+
+rv = reactiveValues(data = rnorm(100))
+observeEvent(input$go, {
+  if(input$dist=="Normal") rv$data = rnorm(input$n)
+  else rv$data = runif(input$n)
+})
+
+## The plot title changes with the slider.
+renderPlot({plot(rv$data, main=paste("Sample size: ", input$n))})
+```
+
+
+### Solution
+
+Use `isolate` to remove `input$n` from the dependency tree.
+
+```{r echo=FALSE}
+renderPlot({plot(rv$data, 
+                 main=paste("Sample size: ", isolate(input$n)))})
+```

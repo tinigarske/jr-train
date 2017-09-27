@@ -1,0 +1,28 @@
+---
+title: "Single Column (Scroll)"
+author: "Jumping Rivers"
+output: 
+  flexdashboard::flex_dashboard:
+    vertical_layout: scroll
+---
+<!--
+%\VignetteEngine{knitr::rmarkdown}
+%\VignetteIndexEntry{Chapter 3: b - Single Column (Scroll)}
+-->
+### Chart 1
+    
+```{r}
+plot(rnorm(10))
+```
+    
+### Chart 2
+
+```{r}
+plot(rnorm(10))
+```
+
+### Chart 3
+
+```{r}
+plot(rnorm(10))
+```

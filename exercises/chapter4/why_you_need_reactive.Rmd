@@ -1,0 +1,39 @@
+---
+title: "Why we need `reactive`"
+author: "Jumping Rivers"
+runtime: shiny
+---
+
+### Problem
+
+Each plot uses the slider value to generate random numbers. However, 
+
+  * we want both plots to display the same data
+  * we only want to call `rnorm` once. 
+
+```{r echo=FALSE}
+sliderInput(inputId = "num1", label = "Sample size",
+            value = 25, min = 1, max = 100)
+
+## Both plots get different data!!
+## rnorm has been executed twice!
+renderPlot({
+  x = rnorm(input$num1)
+  plot(x)
+})
+
+renderPlot({
+  x = rnorm(input$num1)
+  plot(x)
+})
+```
+
+### Solution
+
+Create a `reactive` object that each plot can access.
+
+```{r, echo=1}
+x = reactive(rnorm(input$num1))
+renderPlot({plot(x())})
+renderPlot({plot(x())})
+```

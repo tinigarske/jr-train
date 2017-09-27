@@ -1,0 +1,96 @@
+---
+title: "Chapter 5 Exercises"
+date: "`r Sys.Date()`"
+author: "Jumping Rivers"
+output: html_vignette
+---
+<!--
+%\VignetteEngine{knitr::rmarkdown}
+%\VignetteIndexEntry{Chapter 5 Exercises}
+-->
+
+## Exercise Layouts
+
+  * Open `chapter5/layout_app1.R` and run.
+  * Add a new tab to the output
+    * Let this new tab show a table of two variables, `length` and `rating`.
+    * Try making this an interactive table using `DT::datatable`.
+    * Make sure to remember to use the right `render*` and `*Output` functions.
+
+A second exerise using the `navbarPage` function
+
+  * Open `chapter5/layout_app2.R` and run
+  * Add a new page to the output
+    * Let this new tab show a table of two variables, `length` and `rating`.
+    * Try making this an interactive table using `DT::datatable`.
+  * Try using `navbarMenu` to create a dropdown menu that combines both the summary page and your new tab.
+  * If you wanted you could also try to create something that allows different input data to be shown within each tab
+
+
+## Exercise Dashboards
+
+  * Open `chapter5/dashboard_app1.R` and run.
+  * The app currently shows a list of available functions from the `shinydashboard` package.
+  * Use the available functions to create a new tab which plots `length` against `rating` for the `movies` data.
+  * Add a value box that shows the number of movies that are longer than 4 hours.
+  * Experiment with changing icons for your tabs and boxes.
+
+## Exercise 1
+
+  * Open `chapter5/shiny_app1.R` and run.
+  * Create a new directory, with two files: `ui.R` and `server.R`
+    * Move the ui section of the app to `ui.R` 
+    * Move the server section of the app to `server.R`
+    * Rerun the app via these new files.
+  * Change the scatter plot to a histogram of movie lengths.
+
+## Exercise 2
+
+  * Open `chapter5/shiny_app2.R` and run. Experiment with the columns widths.
+    * You can move columns to the right by adding the `offset` parameter to the `column()` function, e.g. ` column(4, offset=1, ...)`
+  * Reproduce
+    
+    ```{r echo=FALSE, message=FALSE, fig.height=4, fig.width=4}
+    library(nclRshiny)
+    layout(matrix(c(1, 1, 1, 0, 2, 0), 2, 3, byrow = TRUE), heights=c(8, 4))
+    layout_show(2, text=c("Plot", "Drop down"))  
+    ```
+    Hint: You will need to use the `offset` argument
+
+  * Reproduce
+  
+    ```{r echo=FALSE, message=FALSE, fig.height=4, fig.width=4}
+    library("nclRshiny")
+    layout(matrix(c(0, 1, 1, 1, 1, 1,0,
+                    0, 0, 2, 2, 2, 0, 0), 2, 7, byrow = T), heights=c(8, 4))
+    layout_show(2, text=c("Plot", "Drop down"))  
+    ```
+    Hint: You will need to use the `offset` argument and two `fluidRow`
+
+## Exercise 3: interactive graphics
+
+  * Open `chapter5/interactive1.R` and run.
+    * Change the output to display `x` and `y` to 4 significant figures.
+    * If you are familiar with `ggplot2`, change the base graphic plot to a ggplot2 scatter plot. 
+    * Change the plot to a boxplot - does it still work
+  * Open `chapter5/interactive2.R` and run. Explore the other types of point selection.
+
+## Exercise 4: acting on interactive graphics
+
+  * Open `chapter5/interactive3.R` and run.
+  * In the `nearPoints` function, what does
+    * the argument `maxpoints=1` do?
+    * the argument `allRows=TRUE` do?
+  * On the scatter plot, add a line of best fit using the `lm` function
+    * When you click on a point, remove that point from the regression calculation and
+    refit the line.
+    * Add a reset button to you app
+    * Rather than clicking on a point, try brushing - selecting multiple, and altering the line.
+
+## Exercise 5: invalidating reactive contexts
+
+  * Open `chapter5/invalidate.R` and  run.
+  * Can you change the app such that it produces a plot of movie ratings vs lengths from a random sample of movies that changes every 5 seconds
+  * Create a summary output of movie years, let this be it's own reactive context updating every 3 seconds from a random sample of movies.
+  * __Hard:__ Create a summary output of movie years, let this be it's own reactive context updating every 3 seconds by cycling through the movie genres.
+  

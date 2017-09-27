@@ -1,0 +1,29 @@
+---
+title: "Single Column (Fill)"
+author: "Jumping Rivers"
+output: 
+  flexdashboard::flex_dashboard:
+    vertical_layout: fill
+    self_contained: yes
+---
+<!--
+%\VignetteEngine{knitr::rmarkdown}
+%\VignetteIndexEntry{Chapter 3: a - Single Column (Fill)}
+-->
+### Chart 1
+    
+```{r}
+plot(rnorm(10))
+```
+    
+### Chart 2
+
+```{r}
+plot(rnorm(10))
+```
+
+### Chart 3
+
+```{r}
+plot(rnorm(10))
+```

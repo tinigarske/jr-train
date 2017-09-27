@@ -1,0 +1,143 @@
+---
+title: "Components"
+author: "Jumping Rivers"
+output: flexdashboard::flex_dashboard
+source_code: embed
+---
+<!--
+%\VignetteEngine{knitr::rmarkdown}
+%\VignetteIndexEntry{Chapter 3: h - Flexdashboard Components}
+-->
+```{r setup, include=FALSE}
+library(flexdashboard)
+library(nclRshiny)
+library("ggplot2movies")
+library(ggplot2)
+library(flexdashboard)
+data(movies, package="ggplot2movies")
+movies = movies[!is.na(movies$budget) & movies$budget > 0,]
+top_movies = movies[order(-movies$rating), c("title", "year", "budget", "rating"), ]
+colnames(top_movies)  = c("Title", "Year", "Budget", "Rating")
+an = movies[movies$Animation==1,]
+
+theme_set(theme_bw())
+```
+
+Standard text can be added at the top of page if you want. You can include sections and bullet points. As well as
+
+  * Equations
+  * Static pictures
+  * links
+
+To add text within a pane, use the block quote `>`
+
+Tables
+===================================== 
+
+Column {.tabset .tabset-fade}
+-------------------------------------
+### Top 10 movies (static)
+
+
+```{r}
+knitr::kable(top_movies[1:10,], row.names = FALSE)
+```
+
+### Top 10 movies (dynamic)
+
+```{r}
+DT::datatable(top_movies, rownames = FALSE)
+```
+
+Base graphics 
+===================================== 
+
+### Animation movies: Rating vs Length
+
+```{r}
+setnicepar()
+plot(an$rating, an$length, ylab="Length", xlab="Rating", 
+      pch=21, bg="steelblue", ylim=c(0, 140), xlim=c(1, 10))
+grid()
+```
+
+### Animation movies: Length
+
+```{r}
+setnicepar()
+hist(an$length, breaks="fd", col="steelblue", xlab="Movie Length", 
+     main="Histogram of movie length")
+```
+
+htmlwidget and value boxes
+===================================== 
+
+Column 1 {data-width=200}
+------------------------------------
+### Length vs rating
+
+This example makes use of the `plotly` and `ggplot2`. There is also a `valuebox` showing the number
+of terrible movies.
+
+```{r}
+library(plotly)
+g = ggplot(movies, aes(length, rating)) + 
+  geom_point(size=0.5, aes(text=paste("Film: ", title))) + 
+  xlab("Length") + ylab("Rating") + 
+  ylim(c(1, 10)) 
+ggplotly(g)
+```
+
+### Value boxes
+
+```{r}
+valueBox(sum(movies$rating <2), icon = "ion-videocamera", caption="Movies Rated less than 2", 
+         color="red")
+```
+
+
+
+
+Column 2 {data-width=300}
+-------------------------------------
+
+### Movie ratings over number
+
+This example makes use of the `dygraphs` R package. The dygraphs
+package provides rich facilities for charting time-series data 
+in R. 
+
+```{r}
+library(dygraphs)
+years = movies[movies$year > 1929,]
+rat_by_year = tapply(years$rating, years$year, mean)
+
+x = ts(as.vector(rat_by_year), start=1930)
+y = cbind(Rating=x)
+dygraph(y, main = "Ratings over the years", 
+        ylab = "Ratings", group="Ratings") %>% 
+  dyRangeSelector() %>%
+   dyOptions(stepPlot = TRUE) %>%
+  dySeries("V1", label = "Rating")
+```
+
+### Number of movies made
+
+```{r}
+library(dygraphs)
+years = movies[movies$year > 1929,]
+num_by_year = tapply(years$rating, years$year, sum)
+x = ts(as.vector(num_by_year), start=1930)
+y = cbind(Rating=x)
+dygraph(y, main = "Number of movies over the years", 
+        ylab = "No. of movies",group="Ratings") %>% 
+  dyRangeSelector() %>%
+   dyOptions(stepPlot = TRUE) %>%
+  dySeries("V1", label = "No. of Movies made")
+
+```
+
+
+
+
+

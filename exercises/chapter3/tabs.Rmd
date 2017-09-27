@@ -1,0 +1,36 @@
+---
+title: "Tabset Column"
+author: "Jumping Rivers"
+output: 
+  flexdashboard::flex_dashboard:
+    self_contained: yes
+---
+<!--
+%\VignetteEngine{knitr::rmarkdown}
+%\VignetteIndexEntry{Chapter 3: f - Tabset Column}
+-->    
+Column 
+-------------------------------------
+    
+### Chart 1
+    
+```{r}
+plot(rnorm(100))
+```
+   
+Column {.tabset .tabset-fade}
+-------------------------------------
+   
+### Chart 2
+
+The `{.tabset-fade}` attribute gives a fading in/out effect when switching between tabs.
+
+```{r}
+plot(rnorm(10))
+```   
+ 
+### Chart 3
+    
+```{r}
+hist(rnorm(50))
+```

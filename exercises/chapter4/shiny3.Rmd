@@ -1,0 +1,6 @@
+---
+runtime: shiny
+---
+```{r echo=FALSE}
+sliderInput("n", "Sample size", min=10, max=50, value=25)
+```

@@ -1,0 +1,20 @@
+---
+title: "Chapter 6 Exercises"
+date: "`r Sys.Date()`"
+author: "Jumping Rivers"
+output: html_vignette
+---
+<!--
+%\VignetteEngine{knitr::rmarkdown}
+%\VignetteIndexEntry{Chapter 6 Exercises}
+-->
+
+These are less guided exercises. The files below will give you some example code that you can play around with and modify to see what is going on. Feel free to try things with your own data.
+
+## Dynamic user interfaces
+
+  * Open `chapter6/ui_app1` and run
+  
+## Tags
+
+  * Open `chapter6/tags.R` and run

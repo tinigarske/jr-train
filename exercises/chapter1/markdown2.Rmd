@@ -1,0 +1,75 @@
+---
+title: "Chapter 1: Exercise 2"
+date: "`r Sys.Date()`"
+author: "Jumping Rivers"
+output: html_document
+---
+
+## Markdown chunk option
+
+For each knitr code chunk option below
+
+1. Experiment with the different options.
+2. Re-render the file to see what the option does. If you cannot tell, re-render the file both with and without the code chunk.
+3. Describe in your own words what the option does.
+4. Use the RStudio's auto complete function; this is accessed via the TAB key.
+
+***
+
+### eval
+
+  * What happens when `eval=TRUE`?
+  * What is the default?
+```{r eval=FALSE}
+colMeans(cars)
+1 + 1
+```
+Description:
+
+***
+
+### results
+
+  * Other options for results is `markup` and `asis`
+  * What is the default?
+```{r results = 'hide'}
+carmeans = colMeans(cars)
+1 + 1
+```
+Description:
+
+***
+
+###  echo
+  * Try `echo=TRUE`. What's the default value for `echo`?
+
+```{r echo = FALSE}
+plot(cars)
+```
+Description:
+
+***
+
+### fig.width and fig.height
+
+When adding multiple arguments to a code chunk, separate the arguments by a comma.
+
+```{r fig.width = 5, fig.height = 4}
+plot(cars)
+```
+Description:
+
+***
+
+### message   
+
+```{r message = FALSE}
+f = function(x) {
+  message("Thanks")
+  return(x)
+}
+f(10)
+```
+Description:
+
+***

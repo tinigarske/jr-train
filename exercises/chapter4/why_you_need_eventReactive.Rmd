@@ -1,0 +1,32 @@
+---
+title: "Why we need `eventReactive`"
+author: "Jumping Rivers"
+runtime: shiny
+---
+
+### Problem
+
+Suppose we were accessing data from a database, or from a regression model.
+This means that generating data is time consuming, so we only want to 
+generate the scatter plot when we click the button `Plot data`, not when we use the sliders.
+
+```{r echo=FALSE}
+sliderInput("n", "Sample size", 10, 100, 10)
+sliderInput("mean", "Mean", -10, 10, 0)
+actionButton("go", "Plot data")
+
+## We only want to plot on "go"
+renderPlot(plot(rnorm(input$n, input$mean)))
+```
+
+### Solution
+
+Use an `actionButton` in conjunction with an `eventReactive` function. This generates
+a function reactive object that will only be evaluated when the `actionButton` is pressed.
+
+```{r}
+## input$go is the action button. input$n, input$mean are the sliders
+data = eventReactive(input$go, rnorm(input$n, input$mean))
+renderPlot(plot(data()))
+```
+
