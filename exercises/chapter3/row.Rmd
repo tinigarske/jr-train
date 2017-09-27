@@ -3,6 +3,7 @@ title: "Row Orientation Example"
 author: "Jumping Rivers"
 output: 
   flexdashboard::flex_dashboard:
+    vertical_layout: fill
     orientation: rows
 ---
 <!--
@@ -12,7 +13,13 @@ output:
 Row
 -------------------------------------
     
-### Chart 1
+### Chart 1 {data-width=2}
+    
+```{r}
+plot(rnorm(10))
+```
+   
+### Chart 1a {data-width=1}
     
 ```{r}
 plot(rnorm(10))
@@ -26,8 +33,16 @@ Row
 ```{r}
 plot(rnorm(10))
 ```
+
+Some text to elaborate on the particular features of this amazing graph.
+
+### Chart 3a
     
-### Chart 3
+```{r}
+plot(rnorm(10))
+```
+    
+### Chart 3b
 
 ```{r}
 plot(rnorm(10))
