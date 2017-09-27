@@ -1,0 +1,34 @@
+---
+title: "vaccination coverage"
+date: "`r Sys.Date()`"
+author: "Tini"
+output: ioslides_presentation
+params: 
+  antigen: MCV1
+  country: IND
+---
+
+## administrative and estimated vaccination coverage for `r params$antigen` in `r params$country`
+
+```{r echo = FALSE}
+## library(readr)
+## params = list(antigen = "MCV1", country = "IND")
+
+file_adm= paste0("coverage_series_", params$antigen, ".csv")
+cov_adm = read.csv(file_adm, stringsAsFactors = FALSE)
+cov_adm = cov_adm[cov_adm$ISO_code == params$country, ]
+cov_adm = cov_adm[, grep("^X", names(cov_adm))]
+years_adm = as.numeric(gsub("X", "", names(cov_adm)))
+
+
+file_est= paste0("coverage_estimates_series_", params$antigen, ".csv")
+cov_est = read.csv(file_est, stringsAsFactors = FALSE)
+cov_est = cov_est[cov_est$ISO_code == params$country, ]
+cov_est = cov_est[, grep("^X", names(cov_est))]
+years_est = as.numeric(gsub("X", "", names(cov_est)))
+
+plot(years_adm, cov_adm, ylim = c(0,100), xlab = "year", ylab = "vaccination coverage")
+points(years_est, cov_est, col = 3, pch = 20)
+
+
+```

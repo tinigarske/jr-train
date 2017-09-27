@@ -1,0 +1,13 @@
+WHO_REGION,ISO_code,Cname,Vaccine,2016,2015,2014,2013,2012,2011,2010,2009,2008,2007,2006
+WPR,KHM,Cambodia,JapEnc,75,99,,,,,,,,,
+WPR,CHN,China,JapEnc,99,99,99,99,99,99,99,,,,
+SEAR,IND,India,JapEnc,59,70,,69,65,63,37,9,,,
+WPR,JPN,Japan,JapEnc,99,99,99,99,99,61,22,21,4,83,
+WPR,LAO,Lao People's Democratic Republic (the),JapEnc,44,20,,,,,,,,,
+WPR,MYS,Malaysia,JapEnc,,93,90,98,97,,96,95,99,,
+WPR,MHL,Marshall Islands (the),JapEnc,,,,13,,,,,,,
+SEAR,NPL,Nepal,JapEnc,71,77,78,72,62,54,47,21,,,
+WPR,KOR,Republic of Korea (the),JapEnc,97,97,99,99,99,98,89,89,84,84,88
+SEAR,LKA,Sri Lanka,JapEnc,99,99,99,99,99,95,95,64,97,,70
+SEAR,THA,Thailand,JapEnc,92,92,92,92,95,95,95,95,95,87,87
+WPR,VNM,Viet Nam,JapEnc,95,96,94,91,94,,93,,88,93,95
