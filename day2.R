@@ -8,3 +8,6 @@ library("nclRshiny")
 vignette("slides1", package = "nclRshiny")
 vignette("chapter1", package = "nclRshiny")
 
+nclRshiny::create_project()
+## some editing of the .Rmd
+rmarkdown::render("exercises/chapter1/markdown1.Rmd")
